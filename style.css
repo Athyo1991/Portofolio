@@ -1,0 +1,283 @@
+/* Colors & basics */
+:root {
+  --orange: #f59300;
+  --dark: #444444;
+  --paper: #ffffff;
+  --cream: #fffcf5;
+  --sky: #a0d2ff;
+  --sky-light: #c4e2ff;
+  --shadow: #8fb4dc;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  font-weight: 300;
+  color: var(--dark);
+  background: #fff;
+  position: relative;
+  overflow-x: hidden;
+  padding-top: clamp(90px, 14vh, 140px);
+}
+
+/* animated waves at the bottom of the page*/
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-repeat: repeat-x;
+  background-size: 1200px 100%;
+}
+
+/* back wave: lighter, slower, moves the other way */
+body::before {
+  height: 28vh;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 150' preserveAspectRatio='none'%3E%3Cpath d='M0 50 C200 0 400 0 600 50 S1000 100 1200 50 V150 H0 Z' fill='%23c4e2ff'/%3E%3C/svg%3E");
+  animation: wave-right 20s linear infinite;
+  z-index: -2;
+}
+
+/* front wave: darker, faster */
+body::after {
+  height: 20vh;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 150' preserveAspectRatio='none'%3E%3Cpath d='M0 50 C200 0 400 0 600 50 S1000 100 1200 50 V150 H0 Z' fill='%23a0d2ff'/%3E%3C/svg%3E");
+  animation: wave-left 12s linear infinite;
+  z-index: -1;
+}
+
+@keyframes wave-left {
+  from { background-position-x: 0; }
+  to   { background-position-x: -1200px; }
+}
+
+@keyframes wave-right {
+  from { background-position-x: 0; }
+  to   { background-position-x: 1200px; }
+}
+
+a { color: var(--orange); }
+a:focus-visible, summary:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+
+.accent { color: var(--orange); }
+.mono { font-family: "Courier New", monospace; }
+
+/* Windows*/
+.window {
+  width: min(1000px, 92vw);
+  background: var(--paper);
+  border-radius: 10px 10px 8px 8px;
+  box-shadow: 0 6px 0 var(--shadow);
+  overflow: hidden;
+}
+
+.window.home {
+  margin: 0 auto;
+}
+
+.titlebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--dark);
+  color: #fff;
+  padding: 18px 30px;
+}
+
+.titlebar h2,
+.window-title {
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.popup .titlebar h2 { font-family: "Courier New", monospace; font-weight: 500; }
+
+.close {
+  color: #fff;
+  font-family: "Courier New", monospace;
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+.close:hover { color: var(--orange); }
+
+.content { padding: 30px; }
+
+/*Home*/
+.home-content {
+  text-align: center;
+  padding: clamp(40px, 10vh, 110px) 20px clamp(40px, 6vh, 60px);
+}
+
+.home-content h1 {
+  font-size: clamp(2.6rem, 8vw, 5.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.tagline {
+  font-size: clamp(1rem, 2.5vw, 1.6rem);
+  margin-top: 16px;
+}
+
+.icons {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin-top: 70px;
+}
+
+.icons a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 130px;
+  color: var(--dark);
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.15s;
+}
+.icons a:hover { transform: translateY(-6px); }
+.icon { font-size: 2.8rem; }
+
+/*Popup windows*/
+.popup {
+  display: none;
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-height: calc(100vh - 140px);
+  z-index: 10;
+  box-shadow: 0 6px 0 var(--shadow), 0 0 0 100vmax rgba(0, 0, 0, 0.25);
+}
+.popup.small { width: min(520px, 92vw); }
+.popup:target { display: block; }
+
+.popup .content { overflow-y: auto; max-height: calc(100vh - 230px); }
+
+.center { text-align: center; }
+.cream { background: var(--cream); }
+
+/* about */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #eee;
+}
+.avatar {
+  flex: none;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #2f6f73;
+}
+.profile h3 { font-size: 2.2rem; font-weight: 400; }
+
+.scroll { padding-top: 24px; line-height: 1.8; }
+/* every bullet list inside the about window gets the same indent */
+#about ul { margin: 14px 0 14px 28px; }
+
+/* links / faq */
+.plain { list-style: none; margin-top: 16px; line-height: 2.2; }
+
+details { padding: 12px 0; border-bottom: 1px solid #eee; }
+summary { cursor: pointer; font-weight: 600; }
+details p { margin-top: 8px; line-height: 1.6; }
+
+/* work */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+.card {
+  border: 2px solid var(--dark);
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 4px 4px 0 var(--dark);
+}
+.thumb {
+  margin: 0 0 12px;
+  height: 120px;
+  display: grid;
+  place-items: center;
+  font-size: 3rem;
+  background: var(--sky-light);
+  border-radius: 6px;
+}
+.card h3 { font-weight: 600; margin-bottom: 4px; }
+
+/* contact */
+.contact h3 { font-size: 1.6rem; margin-bottom: 14px; }
+.contact p, .contact address { font-size: 0.9rem; line-height: 1.8; }
+.contact address { font-style: normal; }
+.avatar {
+  flex: none;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fffcf5;
+}
+
+.button {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 12px 24px;
+  background: var(--orange);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+}
+.button:hover { background: #d98000; }
+
+/*Footer*/
+footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 6px;
+  text-align: center;
+  font-size: 0.9rem;
+  z-index: 1;
+}
+.socials { list-style: none; display: flex; justify-content: center; gap: 14px; margin-bottom: 6px; }
+.socials a {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--dark);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+}
+.socials a:hover { background: var(--orange); }
+
+footer small { font-size: inherit; }
+
+/* certificate pictures */
+.cert-img {
+  display: block;
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  background: var(--sky-light);
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
