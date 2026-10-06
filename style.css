@@ -197,7 +197,7 @@ details { padding: 12px 0; border-bottom: 1px solid #eee; }
 summary { cursor: pointer; font-weight: 600; }
 details p { margin-top: 8px; line-height: 1.6; }
 
-/* work */
+/* certificates */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -224,14 +224,7 @@ details p { margin-top: 8px; line-height: 1.6; }
 .contact h3 { font-size: 1.6rem; margin-bottom: 14px; }
 .contact p, .contact address { font-size: 0.9rem; line-height: 1.8; }
 .contact address { font-style: normal; }
-.avatar {
-  flex: none;
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  object-fit: cover;
-  background: #fffcf5;
-}
+.contact .avatar { background: var(--cream); }
 
 .button {
   display: inline-block;
